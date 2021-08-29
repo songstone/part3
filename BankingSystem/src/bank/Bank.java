@@ -31,17 +31,36 @@ public class Bank {
 
         // 계좌번호 입력
         Account account;
-        while(true){
+        check: while(true){
             System.out.println("\n출금하시려는 계좌번호를 입력하세요.");
             String accNo = scanner.next();
             // TODO: 검색 -> 적금 계좌이면 적금 계좌의 출금 메소드 호출 -> 완료시 break
+            for(Account chk : CentralBank.getInstance().getAccountList()){
+                if(chk.getAccNo().equals(accNo)){
+                    if(chk.getCategory().equals("S")) {
+                        ((SavingBank) this).withdraw((SavingAccount) chk);
+                        return;
+                    }
+                    else{
+                        account = chk;
+                        break check;
+                    }
+                }
+            }
+            System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
 
         }
         // 출금처리
         System.out.println("\n출금할 금액을 입력하세요.");
         // TODO: interestCalculators 이용하 이자 조회 및 출금
         try {
+            BigDecimal balance = account.getBalance();
+            BigDecimal interest = interestCalculators.get("N").getInterest(balance);
 
+            String amount = scanner.next();
+            BigDecimal withdrawAmount = account.withdraw(new BigDecimal(amount)).add(interest);
+
+            System.out.println("이자 "+ interest +"원을 포함한 " + withdrawAmount + "원이 출금되었습니다.");
         }catch (Exception e){
 
         }
