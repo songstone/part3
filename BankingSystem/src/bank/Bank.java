@@ -14,7 +14,15 @@ public class Bank {
     protected static Scanner scanner = new Scanner(System.in);
     protected static int seq = 0;
     public static DecimalFormat df = new DecimalFormat("#,###");
+    protected HashMap<String,InterestCalculator> interestCalculators;
 
+    public Bank(){
+        interestCalculators = new HashMap<>();
+        InterestCalculator basic = new BasicInterestCalculator();
+        InterestCalculator saving = new SavingInterestCalculator();
+        interestCalculators.put("N",basic);
+        interestCalculators.put("S",saving);
+    }
     // 뱅킹 시스템의 기능들
     public void withdraw() throws Exception {
         //TODO: 출금 메서드 구현
