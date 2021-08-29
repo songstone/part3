@@ -31,21 +31,17 @@ public class Bank {
 
         // 계좌번호 입력
         Account account;
-        check: while(true){
+        while(true){
             System.out.println("\n출금하시려는 계좌번호를 입력하세요.");
             String accNo = scanner.next();
             // TODO: 검색 -> 적금 계좌이면 적금 계좌의 출금 메소드 호출 -> 완료시 break
-            for(Account chk : CentralBank.getInstance().getAccountList()){
-                if(chk.getAccNo().equals(accNo)){
-                    if(chk.getCategory().equals("S")) {
-                        ((SavingBank) this).withdraw((SavingAccount) chk);
-                        return;
-                    }
-                    else{
-                        account = chk;
-                        break check;
-                    }
+            account = findAccount(accNo);
+            if(account != null){
+                if(account.getCategory().equals("S")){
+                    ((SavingBank) this).withdraw((SavingAccount) account);
+                    return;
                 }
+                break;
             }
             System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
 
@@ -69,15 +65,12 @@ public class Bank {
         //TODO: 입금 메서드 구현
         // 존재하지 않는 계좌이면 다시 물어보기
         Account account;
-        check: while(true){
+        while(true){
             System.out.println("\n입금하시려는 계좌번호를 입력해주세요.");
             String accNo = scanner.next();
-            for(Account chk : CentralBank.getInstance().getAccountList()){
-                if(chk.getAccNo().equals(accNo)){
-                    account = chk;
-                    break check;
-                }
-            }
+            account = findAccount(accNo);
+            if(account != null)
+                break;
             System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
         }
         // TODO: 입금 처리
