@@ -52,15 +52,14 @@ public class Bank {
         }
         // 출금처리
         System.out.println("\n출금할 금액을 입력하세요.");
+        String amount = scanner.next();
         // TODO: interestCalculators 이용하 이자 조회 및 출금
         try {
             BigDecimal balance = account.getBalance();
             BigDecimal interest = interestCalculators.get("N").getInterest(balance);
-
-            String amount = scanner.next();
             BigDecimal withdrawAmount = account.withdraw(new BigDecimal(amount)).add(interest);
 
-            System.out.println("이자 "+ interest +"원을 포함한 " + withdrawAmount + "원이 출금되었습니다.");
+            System.out.println("\n이자 "+ df.format(interest) +"원을 포함한 " + df.format(withdrawAmount) + "원이 출금되었습니다.");
         }catch (Exception e){
 
         }
