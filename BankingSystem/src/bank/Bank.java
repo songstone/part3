@@ -68,11 +68,23 @@ public class Bank {
     public void deposit(){
         //TODO: 입금 메서드 구현
         // 존재하지 않는 계좌이면 다시 물어보기
-        System.out.println("\n입금하시려는 계좌번호를 입력해주세요.");
-
+        Account account;
+        check: while(true){
+            System.out.println("\n입금하시려는 계좌번호를 입력해주세요.");
+            String accNo = scanner.next();
+            for(Account chk : CentralBank.getInstance().getAccountList()){
+                if(chk.getAccNo().equals(accNo)){
+                    account = chk;
+                    break check;
+                }
+            }
+            System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
+        }
         // TODO: 입금 처리
         System.out.println("\n입금할 금액을 입력하세요.");
-
+        BigDecimal amount = new BigDecimal(scanner.next());
+        account.deposit(amount);
+        System.out.println(df.format(amount) + "원 입금완료");
     }
 
     public Account createAccount() throws InputMismatchException {
