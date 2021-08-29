@@ -102,8 +102,14 @@ public class Bank {
 
     public Account findAccount(String accNo){
         //TODO: 계좌리스트에서 찾아서 반환하는 메서드 구현
-
-        return account;
+        Account account;
+        for(Account chk : CentralBank.getInstance().getAccountList()){
+            if(chk.getAccNo().equals(accNo)){
+                account = chk;
+                return account;
+            }
+        }
+        return null;
     }
 
     public void transfer() throws Exception{
