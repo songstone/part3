@@ -5,11 +5,11 @@ import bank.Bank;
 import java.math.BigDecimal;
 
 public class Account {
-    private String category;
-    private String accNo;
-    private String owner;
-    private BigDecimal balance;
-    private boolean isActive;
+    protected String category;
+    protected String accNo;
+    protected String owner;
+    protected BigDecimal balance;
+    protected boolean isActive;
 
     public Account() {
         this.category = "N";
