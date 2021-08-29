@@ -11,10 +11,13 @@ public class SavingAccount extends Account{
 
     public SavingAccount(){
         //TODO: 카테고리를 S로 설정해 줍니다.
+        category = "S";
     }
 
     public SavingAccount(String accNo, String owner, BigDecimal balance, BigDecimal goalAmount) {
         // TODO
+        super(accNo,owner,balance);
+        category = "S";
     }
 
     //TODO: GoalAmount getter 구현
