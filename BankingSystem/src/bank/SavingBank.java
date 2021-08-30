@@ -29,9 +29,17 @@ public class SavingBank extends Bank {
     @Override
     public SavingAccount createAccount() throws NoSuchElementException{
         try{
+            System.out.println("\n고객님의 이름을 입력해주세요.");
+            String owner = scanner.next();
+            System.out.println("\n적금계좌의 목표금액을 입력해주세요.");
+            String goalAmount = scanner.next();
+            String accNo = String.format("%04d",++seq);
+            SavingAccount account = new SavingAccount(accNo,owner,new BigDecimal("0"),new BigDecimal(goalAmount));
             return account;
-        }catch (){
+        }catch (Exception e){
             //TODO: 오류 throw
+            System.out.println(e);
+            return null;
         }
     }
 }
