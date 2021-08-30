@@ -115,16 +115,41 @@ public class Bank {
     public void transfer() throws Exception{
         //TODO: 송금 메서드 구현
         // 잘못 입력하거나 예외처리시 다시 입력가능하도록
-        //TODO
-        System.out.println("\n송금하시려는 계좌번호를 입력해주세요.");
-        //TODO
-        System.out.println("\n어느 계좌번호로 보내시려나요?");
-        //TODO
-        System.out.println("\n본인 계좌로의 송금은 입금을 이용해주세요.");
-        //TODO
-        System.out.println("\n적금 계좌로는 송금이 불가합니다.");
-        //TODO
-        System.out.println("\n송금할 금액을 입력하세요.");
-        //TODO
+        Account sendAccount;
+        Account recAccount;
+        while(true){
+            System.out.println("\n송금하시려는 계좌번호를 입력해주세요.");
+            //TODO
+            String sendAccNo = scanner.next();
+            sendAccount = findAccount(sendAccNo);
+            if(sendAccount != null){
+                if(sendAccount.getCategory().equals("S")){
+                    System.out.println("\n적금 계좌로는 송금이 불가합니다. 다시 입력해주세요.");
+                    continue;
+                }
+                break;
+            }
+            System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
+        }
+        while(true){
+            System.out.println("\n어느 계좌번호로 보내시려나요?");
+            //TODO
+            String recAccNo = scanner.next();
+            recAccount = findAccount(recAccNo);
+            if(recAccount != null){
+                if(recAccount.getAccNo().equals(sendAccount.getAccNo())){
+                    System.out.println("\n본인 계좌로의 송금은 입금을 이용해주세요. 다시 입력해주세요.");
+                    continue;
+                }
+                break;
+            }
+            System.out.println("\n찾으시는 계좌번호가 존재하지 않습니다. 다시 입력해주세요.");
+        }
+        System.out.printf("\n송금할 금액을 입력하세요.(잔액: %s원)\n",df.format(sendAccount.getBalance()));
+        String amount = scanner.next();
+        BigDecimal transfer = new BigDecimal(amount);
+        sendAccount.withdraw(transfer);
+        recAccount.deposit(transfer);
+        System.out.printf("\n계좌번호 %s로 %s원 송금완료\n",recAccount.getAccNo(),df.format(transfer));
         }
     }
