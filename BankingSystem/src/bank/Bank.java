@@ -47,7 +47,7 @@ public class Bank {
 
         }
         // 출금처리
-        System.out.println("\n출금할 금액을 입력하세요.");
+        System.out.printf("\n출금할 금액을 입력하세요.(잔액: %s원)\n",df.format(account.getBalance()));
         String amount = scanner.next();
         // TODO: interestCalculators 이용하 이자 조회 및 출금
         try {
@@ -56,6 +56,7 @@ public class Bank {
             BigDecimal withdrawAmount = account.withdraw(new BigDecimal(amount)).add(interest);
 
             System.out.println("\n이자 "+ df.format(interest) +"원을 포함한 " + df.format(withdrawAmount) + "원이 출금되었습니다.");
+            System.out.printf("잔액: %s원\n",df.format(account.getBalance()));
         }catch (Exception e){
 
         }
