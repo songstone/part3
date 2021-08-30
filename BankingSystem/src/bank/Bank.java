@@ -85,11 +85,17 @@ public class Bank {
         try {
             // 계좌번호 채번
             // 계좌번호는 "0000"+증가한 seq 포맷을 가진 번호입니다.
+            System.out.println("\n고객님의 이름을 입력해주세요.");
+            String owner = scanner.next();
+            String accNo = String.format("%04d",++seq);
+            Account account = new Account(accNo, owner, new BigDecimal("0"));
             //TODO
             System.out.printf("\n%s님 계좌가 발급되었습니다.\n", owner);
             return account;
-        }catch (){
+        }catch (Exception e){
             //TODO: 오류 throw
+            System.out.println(e);
+            return null;
         }
     }
 
