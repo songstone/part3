@@ -8,6 +8,7 @@ public class CentralBank {
     //은행시스템의 계좌들을 관리하는 중앙은행 클래스입니다.
     private static CentralBank CENTRAL_BANK = new CentralBank();
     private ArrayList<Account> accountList;
+    private static String BANK_NAME = "Central Bank";
     //TODO: 싱글톤 패턴으로 설계합니다.
     private CentralBank(){
         accountList = new ArrayList<>();
@@ -30,5 +31,9 @@ public class CentralBank {
 
     public void setAccountList(ArrayList<Account> accountList) {
         this.accountList = accountList;
+    }
+
+    public static String getBankName() {
+        return BANK_NAME;
     }
 }
