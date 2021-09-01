@@ -69,6 +69,9 @@ public class Account {
     }
 
     public BigDecimal withdraw(BigDecimal amount) throws Exception{
+        if(balance.compareTo(amount) < 0){
+            throw new Exception(this.getAccNo()+"계좌의 잔액이 부족합니다.");
+        }
         this.balance = this.balance.subtract(amount);
         return amount;
     }
